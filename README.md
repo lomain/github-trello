@@ -27,5 +27,5 @@ It's a little Sinatra app.
 
 ## License
 
-MIT
+[MIT](LICENSE.md)
 
