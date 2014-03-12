@@ -11,6 +11,8 @@ with some details.
   1. Click Add Webhook
   1. Paste http://gaslight-github-trello.herokuapp.com/payload
   1. Save and profit!!!
+1. Make sure your Trello user (Wendell in our case) has access to the
+   board.
 
 ## Development
 
