@@ -32,7 +32,7 @@ with some details.
    https://trello.com/c/shortcode
    ```
 1. Watch as your comments magically appear.
-   ![screenshot](https://trello.com/c/6g6MAeTMhttp://cl.ly/UOKR/Screen%20Shot%202014-03-12%20at%2012.16.51%20PM.png)
+   ![screenshot](http://cl.ly/UOKR/Screen%20Shot%202014-03-12%20at%2012.16.51%20PM.png)
 
 ## Development
 
