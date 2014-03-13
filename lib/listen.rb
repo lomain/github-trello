@@ -2,9 +2,6 @@ require 'sinatra'
 require 'json'
 require 'trello'
 
-# KEY=6157d27914318db0b72438b8f1012329
-# TOKEN=45ec1a854595427fef4cb65bd92eb700959c649bb153ff291bbe84ee2e235cdd
-
 Trello.configure do |config|
   config.developer_public_key = ENV.fetch('TRELLO_KEY')
   config.member_token = ENV.fetch('TRELLO_MEMBER_TOKEN')
