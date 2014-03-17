@@ -1,0 +1,3 @@
+[submodule "submodules/ruby-trello.git"]
+	path = submodules/ruby-trello.git
+	url = git@github.com:lomain/ruby-trello.git
