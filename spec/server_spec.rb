@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'the listener' do
   include Rack::Test::Methods
   
-  let(:app) { Sinatra::Application }
+  let(:app) { GithubTrello }
   let(:sample_payload) { File.read('spec/fixtures/push.json') }
 
   it 'bails with no payload' do
