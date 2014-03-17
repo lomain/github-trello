@@ -2,3 +2,5 @@
 /.bundle
 /vendor/ruby
 conf/
+vendor/
+log/
