@@ -11,13 +11,10 @@ Trello.configure do |config|
   file.sync = true
   Trello.logger = Logger.new(file)
 
-  config.consumer_key = 'a1ac4493138830195e63071543acd16e'
-  config.consumer_secret = 'be69bd24827677e8d68c502dcebf8a5dc8fe66957238eab6c8eee2cb14335156'
-  config.oauth_token = '55ad78e1ddd33b5a5c17bf000ce8e10e455c1da78d29c669af65d4c905f000c5'
-  config.oauth_token_secret = 'be69bd24827677e8d68c502dcebf8a5dc8fe66957238eab6c8eee2cb14335156'
-
-  ## config.developer_public_key = 'a1ac4493138830195e63071543acd16e' # ENV.fetch('TRELLO_KEY')
-  ## config.member_token = '55ad78e1ddd33b5a5c17bf000ce8e10e455c1da78d29c669af65d4c905f000c5' # ENV.fetch('TRELLO_MEMBER_TOKEN')
+  config.consumer_key = 'XXX'
+  config.consumer_secret = 'XXX'
+  config.oauth_token = 'XXX'
+  config.oauth_token_secret = 'XXX'
 end
 
 
