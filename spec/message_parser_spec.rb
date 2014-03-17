@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'parsing' do
-  let(:short_code) { trello_short_code(message) }
+describe MessageParser do
+  let(:short_code) { MessageParser.trello_short_code(message) }
 
   context 'with a known good message' do
     let(:message) do
