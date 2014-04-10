@@ -42,7 +42,8 @@ class GithubTrello < Sinatra::Base
           message = head_commit['message']
           hash = head_commit['id']
           compare_url = push['compare']
-          comment = formatted_comment(author, hash, message, compare_url)
+          repo = push['repository']['name']
+          comment = formatted_comment(repo, author, hash, message, compare_url)
           Trello.logger.debug("About to add comment\n#{comment}")
           card.add_comment(comment)
           response = "Commit: #{comment}"
@@ -72,9 +73,9 @@ class GithubTrello < Sinatra::Base
     result[1] if result
   end
 
-  def formatted_comment(author_name, hash, message, diff_url)
+  def formatted_comment(repo, author_name, hash, message, diff_url)
     <<-EOF.gsub /^ {4}/, ''
-      **Commit by #{author_name} [#{hash[0..8]}](#{diff_url})**:
+      **Commit to #{repo} by #{author_name} [#{hash[0..8]}](#{diff_url})**:
 
       ```
       #{message.sub!(URL_REGEX, '')}
