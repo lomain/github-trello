@@ -31,7 +31,7 @@ class GithubTrello < Sinatra::Base
 
         repo = push['repository']['name']
 
-        push.commits.each do |commit|
+        push['commits'].each do |commit|
           cards += handle_commit(repo, commit)
         end
 
