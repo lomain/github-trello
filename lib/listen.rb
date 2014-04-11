@@ -30,7 +30,7 @@ class GithubTrello < Sinatra::Base
 
         cards = 0
 
-        branch = push['ref'].gsub(refs, '')
+        branch = push['ref'].gsub(REFS_REGEX, '')
         repo = push['repository']['name']
 
         push['commits'].each do |commit|
