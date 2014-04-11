@@ -3,6 +3,7 @@ require 'json'
 require 'trello'
 
 URL_REGEX = /\[?https:\/\/trello.com\/c\/(\w+)\]?:?/
+REFS_REGEX = /^refs\/heads\//
 
 ## file = File.open('log/webhooks.log', File::WRONLY | File::APPEND)
 
@@ -29,10 +30,11 @@ class GithubTrello < Sinatra::Base
 
         cards = 0
 
+        branch = push['ref'].gsub(refs, '')
         repo = push['repository']['name']
 
         push['commits'].each do |commit|
-          cards += handle_commit(repo, commit)
+          cards += handle_commit(repo, branch, commit)
         end
 
         response = "#{cards} cards found"
@@ -48,7 +50,7 @@ class GithubTrello < Sinatra::Base
     return response
   end
 
-  def handle_commit(repo, commit_json)
+  def handle_commit(repo, branch, commit_json)
     Trello.logger.debug("Handling commit\n#{commit_json}")
 
     short_code = trello_short_code(commit_json['message'])
@@ -63,7 +65,7 @@ class GithubTrello < Sinatra::Base
       message = commit_json['message']
       hash = commit_json['id']
       compare_url = commit_json['url']
-      comment = formatted_comment(repo, author, hash, message, compare_url)
+      comment = formatted_comment(repo, branch, author, hash, message, compare_url)
       Trello.logger.debug("About to add comment\n#{comment}")
       card.add_comment(comment)
       response = "Commit: #{comment}"
@@ -85,9 +87,9 @@ class GithubTrello < Sinatra::Base
     result[1] if result
   end
 
-  def formatted_comment(repo, author_name, hash, message, diff_url)
+  def formatted_comment(repo, branch, author_name, hash, message, diff_url)
     <<-EOF.gsub(/^ {4}/, '')
-      **Commit to #{repo} by #{author_name} [#{hash[0..8]}](#{diff_url})**:
+      **Commit to "`#{repo}/#{branch}`" by #{author_name} [#{hash[0..8]}](#{diff_url})**:
 
       ```
       #{message.sub!(URL_REGEX, '')}
