@@ -89,7 +89,7 @@ class GithubTrello < Sinatra::Base
 
   def formatted_comment(repo, branch, author_name, hash, message, diff_url)
     <<-EOF.gsub(/^ {4}/, '')
-      **Commit to "`#{repo}/#{branch}`" by #{author_name} [#{hash[0..8]}](#{diff_url})**:
+      **Commit to "`#{repo}`:`#{branch}`" by #{author_name} [#{hash[0..8]}](#{diff_url})**:
 
       ```
       #{message.sub!(URL_REGEX, '')}
