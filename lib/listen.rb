@@ -12,17 +12,17 @@ Trello.configure do |config|
   file.sync = true
   Trello.logger = Logger.new(file)
 
-  config.consumer_key = 'XXX'
-  config.consumer_secret = 'XXX'
-  config.oauth_token = 'XXX'
-  config.oauth_token_secret = 'XXX'
+  config.consumer_key = 'f1754e0fcf3df99555dd6fee71317ab1'
+  config.consumer_secret = 'a7dacf40e522ed3240fab19ae70426386dcb06de220ad3cdf0ea580e0e7ffc28'
+  config.oauth_token = 'f9a87675b1bfe04f8ede827c52605eb5fbdad634472cafbefd08c041306a4447'
+  config.oauth_token_secret = 'a7dacf40e522ed3240fab19ae70426386dcb06de220ad3cdf0ea580e0e7ffc28'
 end
 
 
 class GithubTrello < Sinatra::Base
   post '/payload' do
     Trello.logger.debug("in '/payload'")
-    response = 'no response'
+    response = 'no commits'
     short_code = ''
     begin
       if params[:payload]
@@ -31,13 +31,15 @@ class GithubTrello < Sinatra::Base
         cards = 0
 
         branch = push['ref'].gsub(REFS_REGEX, '')
-        repo = push['repository']['name']
+        if 'develop' == branch
+          repo = push['repository']['name']
 
-        push['commits'].each do |commit|
-          cards += handle_commit(repo, branch, commit)
+          push['commits'].each do |commit|
+            cards += handle_commit(repo, branch, commit)
+          end
+
+          response = "#{cards} cards found"
         end
-
-        response = "#{cards} cards found"
       else
         status 500
         response = "missing payload"
