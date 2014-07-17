@@ -80,7 +80,7 @@ class GithubTrello < Sinatra::Base
   
   def trello_card(code)
     Trello.logger.debug("About to find card #{code}")
-    @card ||= Trello::Card.find(code)
+    Trello::Card.find(code)
   end
 
   def trello_short_code(commit_message)
