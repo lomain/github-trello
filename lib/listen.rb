@@ -31,9 +31,9 @@ class GithubTrello < Sinatra::Base
         cards = 0
 
         branch = push['ref'].gsub(REFS_REGEX, '')
-        if 'develop' == branch
-          repo = push['repository']['name']
-
+        repo = push['repository']['name']
+        is_submodule = ('closely-common' == repo) || ('closely-common-scripts' == repo)
+        if 'develop' == branch || (is_submodule && 'master' == branch)
           push['commits'].each do |commit|
             cards += handle_commit(repo, branch, commit)
           end
@@ -43,6 +43,7 @@ class GithubTrello < Sinatra::Base
       else
         status 500
         response = "missing payload"
+        Trello.logger.debug ("no payload: #{params}")
       end
     rescue Exception => e
       status 500
