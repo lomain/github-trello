@@ -33,7 +33,7 @@ class GithubTrello < Sinatra::Base
         branch = push['ref'].gsub(REFS_REGEX, '')
         repo = push['repository']['name']
         allow_master = ('closely-common' == repo) || ('closely-common-scripts' == repo) || ('devops' == repo) || ('Utility-Config' == repo) || ('learning-center' == repo)
-        if 'develop' == branch || (allow_master && 'master' == branch)
+        if branch.match(/^develop(?:-\w+)/) || (allow_master && 'master' == branch)
           push['commits'].each do |commit|
             cards += handle_commit(repo, branch, commit)
           end
