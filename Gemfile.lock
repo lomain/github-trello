@@ -62,6 +62,3 @@ DEPENDENCIES
   rspec
   ruby-trello!
   sinatra
-
-RUBY VERSION
-  ruby 2.0.0p648
